@@ -10,6 +10,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/log-in", (req, res) => {
+  res.render("log-in");
+});
+
+app.get("/sign-up", (req, res) => {
+  res.render("sign-up");
+});
+
 const port = 7777;
 app.listen(port, () => {
   console.log(`App listening on http://localhost:${port}`);
