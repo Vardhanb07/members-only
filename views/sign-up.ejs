@@ -78,6 +78,10 @@
         padding: 8px;
         font-size: 22px;
       }
+      .error-message {
+        font-size: 16px;
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -99,6 +103,18 @@
         <div>
           <label for="repeatPassword">Repeat Password</label>
           <input type="password" id="password" name="repeatPassword" required />
+        </div>
+        <div>
+          <% if(isSame === false) { %>
+          <p class="error-message">
+            Please enter same passwords in both the password fields
+          </p>
+          <% } %>
+        </div>
+        <div>
+          <% if(isUnique === false) { %>
+          <p class="error-message">Please enter a unique username</p>
+          <% } %>
         </div>
         <button type="submit">Submit</button>
       </form>

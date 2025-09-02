@@ -1,21 +1,34 @@
 const path = require("node:path");
 const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const loginRouter = require("./routes/loginRouter");
+const signupRouter = require("./routes/signupRouter");
+require("dotenv").config();
 
 const app = express();
 
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "ejs");
 
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
+app.use("/log-in", loginRouter);
+app.use("/sign-up", signupRouter);
+
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-app.get("/log-in", (req, res) => {
-  res.render("log-in");
-});
-
-app.get("/sign-up", (req, res) => {
-  res.render("sign-up");
 });
 
 const port = 7777;
