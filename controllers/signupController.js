@@ -17,7 +17,7 @@ async function postUser(req, res) {
     if (!check) {
       res.render("sign-up", { isSame: true, isUnique: false });
     }
-    res.redirect("/")
+    res.render("signupSuccess")
   }
 }
 

@@ -1,9 +1,10 @@
 const { Router } = require("express");
+const loginController = require("../controllers/loginController");
 
 const loginRouter = Router();
 
-loginRouter.get("/", (req, res) => {
-  res.render("log-in");
-});
+loginRouter.get("/", loginController.showPage);
+
+loginRouter.post("/", loginController.loginUser);
 
 module.exports = loginRouter;

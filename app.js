@@ -2,9 +2,10 @@ const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
+const pool = require("./db/pool");
+const pgSession = require("connect-pg-simple")(session);
 require("dotenv").config();
 
 const app = express();
@@ -20,15 +21,19 @@ app.use(
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
     },
+    store: new pgSession({
+      pool: pool,
+      tableName: "session",
+    }),
   })
 );
-app.use(passport.session());
+app.use(passport.session())
 app.use(express.urlencoded({ extended: false }));
 app.use("/log-in", loginRouter);
 app.use("/sign-up", signupRouter);
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { user: req.user });
 });
 
 const port = 7777;
