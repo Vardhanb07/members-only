@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Message</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Lexend";
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: space-around;
+        align-items: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        border: 1px groove #000;
+        padding: 6px;
+        gap: 10px;
+      }
+      form > div {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      label {
+        font-size: 21px;
+        text-decoration: underline;
+      }
+      textarea {
+        resize: vertical;
+        width: 25em;
+        padding: 4px;
+        font-size: 21px;
+      }
+      button {
+        font-size: 20px;
+        color: #fff;
+        background-color: #0077b6;
+        border: 0;
+        padding: 7px;
+        cursor: pointer;
+      }
+      a {
+        background-color: #0077b6;
+        color: #fff;
+        padding: 8px;
+        font-size: 22px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Post Message</h1>
+    </div>
+    <div>
+      <form action="/message/create" method="post">
+        <div>
+          <label for="message">Message</label>
+          <textarea name="message" id="message"></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div>
+      <a href="/">Go Back</a>
+    </div>
+  </body>
+</html>

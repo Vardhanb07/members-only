@@ -57,6 +57,21 @@
     </style>
   </head>
   <body>
+    <% if(locals.user) { %> 
+    <nav>
+      <div class="header">
+        <h1>Members<span class="sub-header">Only</span></h1>
+      </div>
+      <div class="links">
+        <div class="add-message">
+          <a href="/message/create">Add Message</a>
+        </div>
+        <div class="log-out">
+          <a href="/log-out">Log Out</a>
+        </div>
+      </div>
+    </nav>
+    <% } else { %>
     <nav>
       <div class="header">
         <h1>Members<span class="sub-header">Only</span></h1>
@@ -70,9 +85,7 @@
         </div>
       </div>
     </nav>
-    <% if(locals.user) { %>
-    <p>Success</p>
-    <% } %> 
+    <% } %>
     <%- include('messages'); %>
   </body>
 </html>

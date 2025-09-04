@@ -4,6 +4,8 @@ const session = require("express-session");
 const passport = require("passport");
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
+const logoutRouter = require("./routes/logoutRouter");
+const messageRouter = require("./routes/messageRouter");
 const pool = require("./db/pool");
 const pgSession = require("connect-pg-simple")(session);
 require("dotenv").config();
@@ -27,10 +29,12 @@ app.use(
     }),
   })
 );
-app.use(passport.session())
+app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use("/log-in", loginRouter);
 app.use("/sign-up", signupRouter);
+app.use("/log-out", logoutRouter);
+app.use("/message", messageRouter);
 
 app.get("/", (req, res) => {
   res.render("index", { user: req.user });

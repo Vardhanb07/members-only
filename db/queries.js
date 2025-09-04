@@ -14,6 +14,19 @@ async function insertUser(name, username, password, membershipstatus) {
   }
 }
 
+async function insertMessage(message, user_id) {
+  try {
+    await pool.query(
+      "INSERT INTO messages (message, user_id) VALUES ($1, $2)",
+      [message, user_id]
+    );
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 module.exports = {
   insertUser,
+  insertMessage
 };
