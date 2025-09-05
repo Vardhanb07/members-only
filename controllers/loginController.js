@@ -18,7 +18,7 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      const match = bcrypt.compare(passport, user.passport);
+      const match = bcrypt.compare(password, user.password);
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
@@ -43,14 +43,14 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-function loginUser(req, res) {
+function loginUser(req, res, next) {
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/",
-  });
+  })(req, res, next);
 }
 
 module.exports = {
   showPage,
   loginUser
-}
+};
