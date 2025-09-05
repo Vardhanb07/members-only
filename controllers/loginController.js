@@ -4,7 +4,7 @@ const pool = require("../db/pool");
 const bcrypt = require("bcryptjs");
 
 function showPage(req, res) {
-  res.render("log-in");
+  res.render("log-in", { loginFailureMessages: req.session.messages });
 }
 
 passport.use(
@@ -16,11 +16,11 @@ passport.use(
       );
       const user = rows[0];
       if (!user) {
-        return done(null, false, { message: "Incorrect username" });
+        return done(null, false, { message: "Please enter correct username" });
       }
-      const match = bcrypt.compare(password, user.password);
+      const match = await bcrypt.compare(password, user.password);
       if (!match) {
-        return done(null, false, { message: "Incorrect password" });
+        return done(null, false, { message: "Please enter correct password" });
       }
       done(null, user);
     } catch (err) {
@@ -44,13 +44,15 @@ passport.deserializeUser(async (id, done) => {
 });
 
 function loginUser(req, res, next) {
+  req.session.messages = [];
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
+    failureRedirect: "/log-in",
+    failureMessage: true,
   })(req, res, next);
 }
 
 module.exports = {
   showPage,
-  loginUser
+  loginUser,
 };

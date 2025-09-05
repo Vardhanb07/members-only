@@ -78,6 +78,10 @@
         padding: 8px;
         font-size: 22px;
       }
+      .error-message {
+        color: red;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
@@ -92,6 +96,12 @@
           <label for="password">Password</label>
           <input type="password" name="password" id="password" required />
         </div>
+        <% if(loginFailureMessages) { %> <% for(let i = 0; i <
+        loginFailureMessages.length; i++) { %>
+        <div>
+          <p class="error-message"><%= loginFailureMessages[i] %></p>
+        </div>
+        <% } %> <% } %>
         <button type="submit">Submit</button>
       </form>
       <div class="return">
