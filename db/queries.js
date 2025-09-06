@@ -1,12 +1,12 @@
 const pool = require("./pool");
 const bcrypt = require("bcryptjs");
 
-async function insertUser(name, username, password, membershipstatus) {
+async function insertUser(name, username, password, admin) {
   try {
     password = await bcrypt.hash(password, 11);
     await pool.query(
-      "INSERT INTO users (name, username, password, membershipstatus) VALUES ($1, $2, $3, $4)",
-      [name, username, password, membershipstatus]
+      "INSERT INTO users (name, username, password, admin) VALUES ($1, $2, $3, $4)",
+      [name, username, password, admin]
     );
     return true;
   } catch (err) {
@@ -40,9 +40,19 @@ async function getMessages() {
   }
 }
 
+async function deleteMessage(message_id) {
+  try {
+    await pool.query("DELETE FROM messages WHERE id=$1", [message_id]);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 module.exports = {
   insertUser,
   insertMessage,
   getMessages,
   getUser,
+  deleteMessage
 };

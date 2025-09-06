@@ -9,13 +9,13 @@ const SQL = `
     name TEXT,
     username TEXT UNIQUE,
     password TEXT,
-    membershipstatus BOOLEAN
+    admin BOOLEAN
   );
   CREATE TABLE messages (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     message TEXT,
     added DATE,
-    user_id INTEGER REFERENCES users(id),
+    user_id INTEGER REFERENCES users(id)
   );
   CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",

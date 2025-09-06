@@ -12,7 +12,7 @@ async function postUser(req, res) {
       req.body.name,
       req.body.username,
       req.body.password,
-      true
+      false
     );
     if (!check) {
       res.render("sign-up", { isSame: true, isUnique: false });

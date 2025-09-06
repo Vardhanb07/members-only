@@ -14,6 +14,13 @@
         <div>
           <p><%= messages[i]["message"] %></p>
         </div>
+        <% if(locals.user) { %> 
+          <% if(user["admin"]) { %>
+            <div class="remove-message">
+              <a href= <%= `/message/delete/${messages[i]["id"]}` %> >Delete</a>
+            </div>
+          <% } %>
+        <% } %>
       </div>
       <% } %>
     </div>

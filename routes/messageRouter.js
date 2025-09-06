@@ -7,4 +7,6 @@ messageRouter.get("/create", messageController.createMessage);
 
 messageRouter.post("/create", messageController.postMessage);
 
+messageRouter.get("/delete/:id", messageController.removeMessage);
+
 module.exports = messageRouter;
