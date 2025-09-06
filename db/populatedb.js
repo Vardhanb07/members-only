@@ -14,7 +14,8 @@ const SQL = `
   CREATE TABLE messages (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     message TEXT,
-    user_id INTEGER REFERENCES users(id)
+    added DATE,
+    user_id INTEGER REFERENCES users(id),
   );
   CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",

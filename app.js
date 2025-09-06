@@ -6,6 +6,7 @@ const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
 const logoutRouter = require("./routes/logoutRouter");
 const messageRouter = require("./routes/messageRouter");
+const { getMessages, getUser } = require("./db/queries");
 const pool = require("./db/pool");
 const pgSession = require("connect-pg-simple")(session);
 require("dotenv").config();
@@ -36,8 +37,13 @@ app.use("/sign-up", signupRouter);
 app.use("/log-out", logoutRouter);
 app.use("/message", messageRouter);
 
-app.get("/", (req, res) => {
-  res.render("index", { user: req.user });
+app.get("/", async (req, res) => {
+  const messages = await getMessages();
+  let users = [];
+  for (const message of messages) {
+    users.push(await getUser(message["user_id"]));
+  }
+  res.render("index", { user: req.user, messages: messages, users: users });
 });
 
 const port = 7777;

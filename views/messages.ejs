@@ -1,5 +1,21 @@
 <html>
   <body>
-    
+    <div class="messages">
+      <% for(let i = 0; i < messages.length; i++) { %>
+      <div>
+        <% if(locals.user) { %>
+        <div>
+          <p>Username: <%= users[i]["username"] %></p>
+        </div>
+        <div>
+          <p>Added on: <%= messages[i]["added"] %></p>
+        </div>
+        <% } %>
+        <div>
+          <p><%= messages[i]["message"] %></p>
+        </div>
+      </div>
+      <% } %>
+    </div>
   </body>
 </html>
